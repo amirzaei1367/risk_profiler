@@ -1,0 +1,257 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>index</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script> -->
+
+    <script src="{% static 'index.js' %}" defer></script>
+    <script></script>
+  </head>
+  <body style="background-color: #F6F4EB">
+    <div class="container mb-5 mt-1"  >
+      <div class="jumbotron" style="padding-top: 10px; padding-bottom: 10px; background-color: gray;">
+        <h1 class="display-5 " style="color: white">REI Systems AI/ML</h1>
+        <p class="lead" style="color: white; text-align:justify;">Discover the Power of AI/ML Projects: Unleash Innovation with Real-World Use Cases
+        </p>
+      </div>
+
+      <div class="container" >
+        <div class="row">
+          <div class="col-md-4 d-flex justify-content-center">
+            <div class="card " style="width: 18rem">
+              <img src="{% static 'logo.svg' %}" style="width:70%;" class="card-img-top mx-auto"  alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Resume Auto-Fill</h5>
+                <p class="card-text" style="text-align:justify;">
+                  When a resume is selected, the form will automatically be
+                  filled with the extracted information from the resume.
+                </p>
+                <a
+                  href="/resume_form_view"
+                  target="_blank"
+                  class="btn"
+                  style="background-color: #C5DFF8; color: black; border-color: black;"
+                  >view</a
+                >
+                <a
+                  href="https://github.com/amirzaei1367/intern2023/tree/main/resume_auto_fill"
+                  target="_blank"
+                  class="btn"
+                  style="background-color: #C5DFF8; color: black; border-color: black;"
+                  >code</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex justify-content-center">
+            <div class="card" style="width: 18rem">
+              <img src="{% static 'logo.svg' %}" style="width:70%;" class="card-img-top  mx-auto" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Resume Chatbot</h5>
+                <p class="card-text" style="text-align:justify;">
+                  Query the resume database using a text input, and display the results in
+                  a table format.<pre></pre>
+                </p>
+                <a href="/resume_search_view" target="_blank" class="btn"
+                style="background-color: #C5DFF8; color: black; border-color: black;"
+                  >view</a
+                >
+                <a
+                href="https://github.com/amirzaei1367/intern2023/tree/main/text_2_sql"
+                target="_blank"
+                class="btn"
+                style="background-color: #C5DFF8; color: black; border-color: black;"
+                >code</a
+              >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 d-flex justify-content-center">
+            <div class="card" style="width: 18rem">
+              <img src="{% static 'logo.svg' %}" style="width:70%;" class="card-img-top  mx-auto" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Trademark Search</h5>
+                <p class="card-text" style="text-align:justify;">
+                  Trademark search suggests relevant trademarks for an input image and text.<pre></pre>
+                </p>
+                <a
+                  href="trademark_search_view"
+                  target="_blank"
+                  class="btn"
+                  style="background-color: #C5DFF8; color: black; border-color: black;"
+                  >view</a
+                >
+                <a
+                href="https://github.com/REI-Systems"
+                target="_blank"
+                class="btn"
+                style="background-color: #C5DFF8; color: black; border-color: black;"
+                >code</a
+              >
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 d-flex justify-content-center mt-5">
+            <div class="card" style="width: 18rem">
+              <img src="{% static 'logo.svg' %}" style="width:70%;" class="card-img-top  mx-auto" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Spell-Checker</h5>
+                <p class="card-text" style="text-align:justify;">
+                  spell checker will suggest the most relevant spell to an input name.<pre></pre>
+                </p>
+                <a
+                  href="spell_checker_view"
+                  target="_blank"
+                  class="btn"
+                  style="background-color: #C5DFF8; color: black; border-color: black;"
+                  >view</a
+                >
+                <a
+                href="https://github.com/REI-Systems"
+                target="_blank"
+                class="btn"
+                style="background-color: #C5DFF8; color: black; border-color: black;"
+                >code</a
+              >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex justify-content-center mt-5">
+            <div class="card" style="width: 18rem">
+              <img src="{% static 'logo.svg' %}" style="width:70%;" class="card-img-top  mx-auto"  />
+              <div class="card-body shadow p-3  bg-white rounded">
+                <h5 class="card-title">Resume Recommender</h5>
+                <p class="card-text" style="text-align:justify;">
+                  Selecting a proposal, and the recommender will recommend the
+                  most relevant resumes.<pre></pre>
+                </p>
+                <a
+                  href="resume_recommender_view"
+                  target="_blank"
+                  class="btn"
+                  style="background-color: #C5DFF8; color: black; border-color: black;"
+                  >view</a
+                >
+                <a
+                href="https://github.com/REI-Systems"
+                target="_blank"
+                class="btn"
+                style="background-color: #C5DFF8; color: black; border-color: black;"
+                >code</a
+              >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex justify-content-center mt-5">
+            <div class="card" style="width: 18rem">
+              <img src="{% static 'logo.svg' %}" style="width:70%;" class="card-img-top  mx-auto"  />
+              <div class="card-body shadow p-3  bg-white rounded">
+                <h5 class="card-title">GSA Search</h5>
+                <p class="card-text" style="text-align:justify;">
+                  Performing a query search within the available statements of works (SoWs) and returning the most semantically similar SOWs to the query<pre></pre>
+                </p>
+                <a
+                  href="gsa_search_view"
+                  target="_blank"
+                  class="btn"
+                  style="background-color: #C5DFF8; color: black; border-color: black;"
+                  >view</a
+                >
+                <a
+                href="https://github.com/amirzaei1367/REI_Systems/tree/master/gsa_search"
+                target="_blank"
+                class="btn"
+                style="background-color: #C5DFF8; color: black; border-color: black;"
+                >code</a
+              >
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 d-flex justify-content-center mt-5">
+            <div class="card" style="width: 18rem">
+              <img src="{% static 'logo.svg' %}" style="width:70%;" class="card-img-top  mx-auto"  />
+              <div class="card-body shadow p-3  bg-white rounded">
+                <h5 class="card-title">FDA Chatbot</h5>
+                <p class="card-text" style="text-align:justify;">
+                  The FDA chatbot utilizes natural language processing (NLP) technologies to understand user queries and provide relevant responses. It can assist users navigate the FDA's vast repository of information and resources<pre></pre>
+                </p>
+                <a
+                  href="fda_search_view"
+                  target="_blank"
+                  class="btn"
+                  style="background-color: #C5DFF8; color: black; border-color: black;"
+                  >view</a
+                >
+                <a
+                href="https://github.com/REI-Systems"
+                target="_blank"
+                class="btn"
+                style="background-color: #C5DFF8; color: black; border-color: black;"
+                >code</a
+              >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 d-flex justify-content-center mt-5">
+            <div class="card" style="width: 18rem">
+              <img src="{% static 'logo.svg' %}" style="width:70%;" class="card-img-top  mx-auto"  />
+              <div class="card-body shadow p-3  bg-white rounded">
+                <h5 class="card-title">FDA Risk Profiler (Sentinel)</h5>
+                <p class="card-text" style="text-align:justify;">
+                  “Sentinel” will empower the FDA to more efficiently prevent hazardous products from entering the US and allocate resources more strategically towards the inspection of high-risk items.<pre></pre>
+                </p>
+                <a
+                  href="fda_risk_profiler_view"
+                  target="_blank"
+                  class="btn"
+                  style="background-color: #C5DFF8; color: black; border-color: black;"
+                  >view</a
+                >
+                <a
+                href="https://github.com/REI-Systems"
+                target="_blank"
+                class="btn"
+                style="background-color: #C5DFF8; color: black; border-color: black;"
+                >code</a
+              >
+              </div>
+            </div>
+          </div>
+
+        </div>        
+
+      </div>
+    </div>
+  </body>
+</html>

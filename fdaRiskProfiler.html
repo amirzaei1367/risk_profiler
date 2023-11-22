@@ -1,0 +1,430 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FDA Risk Profiler</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <script src="{% static 'fdaRiskProfiler.js' %}" defer></script>
+    <style>
+      .fixed-cell {
+        /* width: 100px; Set fixed width for each cell */
+        white-space: nowrap; /* Prevent cell content from wrapping */
+        overflow: scroll; /* Hide content that overflows */
+        /* text-overflow: scroll; Show ellipsis (...) for long content */
+        /* border: 1px solid #ccc; /* Optional: Add borders for cells */
+        /* padding: 5px; Optional: Add padding for cells */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" style="max-width: 1700px">
+      <div class="row">
+        <div class="col-md-6">
+          <h2 class="display-4" style="color: rgb(189, 93, 56)">
+            FDA Risk Profiler
+          </h2>
+        </div>
+
+        <div class="col-md-6">
+          <div class="float-end">
+            <button
+              type="button"
+              class="btn btn-primary mt-3"
+              style="
+                background-color: #c5dff8;
+                color: black;
+                border-color: black;
+              "
+              onclick="process()"
+            >
+              process
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-body-tertiary p-5 rounded mb-3" id="risk_factors">
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseZero"
+                aria-expanded="true"
+                aria-controls="collapseZero"
+              >
+                <b class="h4">Load</b>
+              </button>
+            </h2>
+            <div
+              id="collapseZero"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body">
+                <p style="margin-bottom: 0px">
+                  select a csv file that contain the lines to be processed
+                </p>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="input-group">
+                    <div class="custom-file" style="padding-left: 20px">
+                      <input
+                        type="file"
+                        class="custom-file-input"
+                        id="load_file_picker"
+                        aria-describedby="inputGroupFileAddon01"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="container mt-5" style="max-width: 1700px">
+                <table class="table table-striped" style="table-layout: fixed">
+                  <thead>
+                    <tr>
+                      <th scope="col">line</th>
+                      <th scope="col">Owner</th>
+                      <th scope="col">Manuf.</th>
+                      <th scope="col">Shipper</th>
+                      <th scope="col">Consignee</th>
+                      <th scope="col">Importer</th>
+                      <th scope="col">Transmitter</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Port</th>
+                      <th scope="col">Carrier</th>
+                      <th scope="col">Country of shipping</th>
+                      <th scope="col">Country of production</th>
+                    </tr>
+                  </thead>
+                  <tbody id="load_table_body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion" id="accordionExample1">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+              >
+                <b class="h4">Track score</b>
+              </button>
+            </h2>
+            <div
+              id="collapseOne"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionExample1"
+            >
+              <div class="accordion-body">
+                <p style="margin-bottom: 0px">
+                  Predicting the track score of each line based on historical
+                  data
+                </p>
+              </div>
+
+              <!-- <div class="row">
+                <div class="col-md-2">
+                  <div class="input-group">
+                    <div class="custom-file" style="padding-left: 20px">
+                      <input
+                        type="file"
+                        class="custom-file-input"
+                        id="credit_score_file_picker"
+                        aria-describedby="inputGroupFileAddon01"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
+              <div class="container mt-5" style="max-width: 1700px">
+                <table class="table table-striped" style="table-layout: fixed">
+                  <thead>
+                    <tr>
+                      <th scope="col">line</th>
+                      <th scope="col">Owner</th>
+                      <th scope="col">Manuf.</th>
+                      <th scope="col">Shipper</th>
+                      <th scope="col">Consignee</th>
+                      <th scope="col">Importer</th>
+                      <th scope="col">Transmitter</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Port</th>
+                      <th scope="col">Carrier</th>
+                      <th scope="col">Country of shipping</th>
+                      <th scope="col">Country of production</th>
+                    </tr>
+                  </thead>
+                  <tbody id="track_score_table_body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion" id="accordionExample2">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+              >
+                <b class="h4">Media Score</b>
+              </button>
+            </h2>
+            <div
+              id="collapseTwo"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionExample2"
+            >
+              <div class="accordion-body">
+                <p>
+                  Predicting the media score of each line based on news aroud
+                  each entity within the line
+                </p>
+              </div>
+
+              <div class="container mt-5" style="max-width: 1700px">
+                <table class="table table-striped" style="table-layout: fixed">
+                  <thead>
+                    <tr>
+                      <th scope="col">line</th>
+                      <th scope="col">Owner</th>
+                      <th scope="col">Manuf.</th>
+                      <th scope="col">Shipper</th>
+                      <th scope="col">Consignee</th>
+                      <th scope="col">Importer</th>
+                      <th scope="col">Transmitter</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Port</th>
+                      <th scope="col">Carrier</th>
+                      <th scope="col">Country of shipping</th>
+                      <th scope="col">Country of production</th>
+                    </tr>
+                  </thead>
+                  <tbody id="media_score_table_body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion" id="accordionExample3">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree"
+                aria-expanded="false"
+                aria-controls="collapseThree"
+              >
+                <b class="h4">Adjacency Score</b>
+              </button>
+            </h2>
+            <div
+              id="collapseThree"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionExample3"
+            >
+              <div class="accordion-body">
+                <p>
+                  Predicting the Adjacency score of each line based on the
+                  adjacency graph of each line
+                </p>
+              </div>
+
+              <div class="container mt-5" style="max-width: 1700px">
+                <table class="table table-striped" style="table-layout: fixed">
+                  <thead>
+                    <tr>
+                      <th scope="col">line</th>
+                      <th scope="col">Owner</th>
+                      <th scope="col">Manuf.</th>
+                      <th scope="col">Shipper</th>
+                      <th scope="col">Consignee</th>
+                      <th scope="col">Importer</th>
+                      <th scope="col">Transmitter</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Port</th>
+                      <th scope="col">Carrier</th>
+                      <th scope="col">Country of shipping</th>
+                      <th scope="col">Country of production</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adjacency_score_table_body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion" id="accordionExample3">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseSix"
+                aria-expanded="true"
+                aria-controls="collapseSix"
+              >
+                <b class="h4">Credict Score</b>
+              </button>
+            </h2>
+            <div
+              id="collapseSix"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body">
+                <p>
+                  calculating the credit for each entity based on finantial
+                  records
+                </p>
+              </div>
+
+              <div class="container mt-5" style="max-width: 1700px">
+                <table class="table table-striped" style="table-layout: fixed">
+                  <thead>
+                    <tr>
+                      <th scope="col">line</th>
+                      <th scope="col">Owner</th>
+                      <th scope="col">Manuf.</th>
+                      <th scope="col">Shipper</th>
+                      <th scope="col">Consignee</th>
+                      <th scope="col">Importer</th>
+                      <th scope="col">Transmitter</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Port</th>
+                      <th scope="col">Carrier</th>
+                      <th scope="col">Country of shipping</th>
+                      <th scope="col">Country of production</th>
+                    </tr>
+                  </thead>
+                  <tbody id="credit_score_table_body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion" id="accordionExample3">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFive"
+                aria-expanded="true"
+                aria-controls="collapseFive"
+              >
+                <b class="h4">Total risk</b>
+              </button>
+            </h2>
+            <div
+              id="collapseFive"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body">
+                <p>
+                  calculating the total risk of each line based on the above
+                  scores
+                </p>
+              </div>
+
+              <div class="container mt-5" style="max-width: 1700px">
+                <table class="table table-striped" style="table-layout: fixed">
+                  <thead>
+                    <tr>
+                      <th scope="col">line</th>
+                      <th scope="col">Owner</th>
+                      <th scope="col">Manuf.</th>
+                      <th scope="col">Shipper</th>
+                      <th scope="col">Consignee</th>
+                      <th scope="col">Importer</th>
+                      <th scope="col">Transmitter</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Port</th>
+                      <th scope="col">Carrier</th>
+                      <th scope="col">Country of shipping</th>
+                      <th scope="col">Country of production</th>
+                    </tr>
+                  </thead>
+                  <tbody id="total_score_table_body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="bg-body-tertiary p-5 rounded mb-3" id="stats_section">
+        <div class="accordion" id="accordionExample1">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseSix"
+                aria-expanded="true"
+                aria-controls="collapseSix"
+              >
+                <b class="h4">Statistics</b>
+              </button>
+            </h2>
+            <div
+              id="collapseSix"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionExample1"
+            >
+              <div class="accordion-body">
+                <p>
+                  displaying the statistics of the data used for the training
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </body>
+</html>
